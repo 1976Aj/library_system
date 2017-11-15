@@ -1,0 +1,14 @@
+* {
+  box-sizing: border-box; }
+
+.books .table .book img {
+  max-height: 100px; }
+
+.bookDescription {
+  max-width: 300px; }
+
+.page-header {
+  border-bottom: none; }
+
+#templates {
+  display: none; }

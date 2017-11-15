@@ -52,3 +52,5 @@ getBorrowersRequest.done( (dataFromServer) => {
     addBorrowerToPage(borrowerData)
   })
 })
+
+
