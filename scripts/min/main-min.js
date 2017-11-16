@@ -43,8 +43,6 @@ bookTable.on('click', '.bookDelete', function(event) {
   })
 })
 
-
-
 // The borrowerData argument is passed in from the API
 function addBorrowerToPage(borrowerData) {
   var borrower = borrowerTemplate.clone()
@@ -99,5 +97,30 @@ $('#createBookButton').on('click', () => {
     $('#addBookForm')[0].reset()
   })
 })
+
+// BORROWER MODAL FUNCTIONALITY
+
+$('#createBorrowerButton').on('click', () => {
+  var borrowerData = {}
+  borrowerData.firstname = $('.addBorrowerFirstname').val()
+  borrowerData.lastname = $('.addBorrowerLastname').val()
+
+  var createBorrowerRequest = $.ajax({
+    type: 'POST',
+    url: `${baseURL}/borrowers`,
+    data: {
+      borrower: borrowerData
+    }
+  })
+
+  createBorrowerRequest.done((dataFromServer) => {
+    addBorrowerToPage(dataFromServer)
+    $('#addBorrowerModal').modal('hide')
+    $('#addBorrowerForm')[0].reset()
+  })
+})
+
+
+// IMAGE LOADING ERROR
 
 

@@ -45,7 +45,7 @@
     <div class="col-md-4 borrowers">
       <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading"><h2>Borrowers <button class="btn btn-sm btn-warning glyphicon glyphicon-plus pull-right"></button></h2></div>
+        <div class="panel-heading"><h2>Borrowers <button class="btn btn-sm btn-warning glyphicon glyphicon-plus pull-right" data-toggle="modal" data-target="#addBorrowerModal"></button></h2></div>
         <!-- Table -->
         <table id="borrowerTable" class="table table-striped">
           <tr></tr>
@@ -73,7 +73,7 @@
       </div>
       <div class="modal-body">
 
-  <!-- Book Form Modal -->
+  <!-- Books Form Modal -->
   <form id="addBookForm">
     <div class="form-group input-group">
       <span class="input-group-addon">
@@ -83,6 +83,11 @@
     </div>
       <div class="form-group">
         <textarea name="bookDescription" placeholder="Description" class="form-control addBookDescription" rows="8"></textarea>
+      </div>
+
+      <div class="hidden">
+        <input type='file' id="imgInp" />
+  <img id="blah" src="#" alt="your image" />
       </div>
       <div class="form-group input-group">
         <span class="input-group-addon"><div class="glyphicon glyphicon-picture"></div></span>
@@ -98,6 +103,36 @@
       </div>
     </div>
   </div>
+
+
+  <!-- Borrower Modal -->
+  <div class="modal fade" id="addBorrowerModal" tabindex="-1" role="dialog" aria-labelledby="addBorrowerModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="addBorrowerModalLabel">Personal Info</h4>
+        </div>
+        <div class="modal-body">
+
+    <!-- Borrower Form Modal -->
+    <form id="addBorrowerForm">
+      <div class="form-group">
+        <input class="form-control addBorrowerFirstname" type="text" name="borrowerName" placeholder="Firstname">
+      </div>
+        <div class="form-group">
+            <input class="form-control addBorrowerLastname" type="text" name="borrowerName" placeholder="Lastname">
+        </div>
+    </form>
+
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="createBorrowerButton" type="button" class="btn btn-primary">Create User</button>
+        </div>
+        </div>
+      </div>
+    </div>
 
 <!-- ============================================================== -->
 <!-- ======================== TEMPLATES =========================== -->
@@ -122,7 +157,6 @@
 </tr>
 </table>
 </section>
-
 
     <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
