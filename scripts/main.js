@@ -17,7 +17,7 @@ function addBookToPage(bookData) {
   book.find('.bookDescription').text(bookData.description)
   book.find('.bookImage').attr('src', bookData.image_url)
   book.find('.bookImage').attr('alt', bookData.title)
-  bookTable.append(book)
+  bookTable.prepend(book)
 }
 
 var getBooksRequest = $.ajax({
@@ -51,7 +51,7 @@ function addBorrowerToPage(borrowerData) {
   borrower.attr('data-id', borrowerData.id)
   borrower.find('.borrowerFirstName').text(borrowerData.firstname)
   borrower.find('.borrowerLastName').text(borrowerData.lastname)
-  borrowerTable.append(borrower)
+  borrowerTable.prepend(borrower)
 }
 
 var getBorrowersRequest = $.ajax({
@@ -74,5 +74,28 @@ borrowerTable.on('click', '.borrowerDelete', function(event) {
   })
   deleteRequest.done(function() {
     item.remove()
+  })
+})
+
+// BOOKS MODAL FUNCTIONALITY
+
+$('#createBookButton').on('click', () => {
+  var bookData = {}
+  bookData.title = $('.addBookTitle').val()
+  bookData.description = $('.addBookDescription').val()
+  bookData.image_url = $('.addBookImageURL').val()
+
+  var createBookRequest = $.ajax({
+    type: 'POST',
+    url: `${baseURL}/books`,
+    data: {
+      book: bookData
+    }
+  })
+
+  createBookRequest.done((dataFromServer) => {
+    addBookToPage(dataFromServer)
+    $('#addBookModal').modal('hide')
+    $('#addBookForm')[0].reset()
   })
 })
