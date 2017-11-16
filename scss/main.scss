@@ -1,7 +1,10 @@
 $accent-color: #CCC;
+$pageHeaderFont: 'Anton', sans-serif;
+$booksBodyFont: 'Barlow', sans-serif;
 
 * {
   box-sizing: border-box;
+  font-size: 100%;
 }
 
 .books {
@@ -10,17 +13,35 @@ $accent-color: #CCC;
       img {
         max-height: 100px;
       }
+      .bookTitle {
+        max-width: 180px;
+        font-family: $booksBodyFont;
+        font-weight: bold;
+        letter-spacing: .04em;
+      }
+      .bookDescription {
+        max-width: 350px;
+        letter-spacing: .03em;
+      }
     }
   }
-
+  font-family: $booksBodyFont;
 }
 
-.bookDescription {
-  max-width: 300px;
+.borrowers {
+  .table {
+    font-family: $booksBodyFont;
+    letter-spacing: .04em;
+  }
 }
 
 .page-header {
   border-bottom: none;
+  font-family: $pageHeaderFont;
+}
+
+.panel-heading {
+  font-family: $pageHeaderFont;
 }
 
 #templates {

@@ -1,14 +1,30 @@
 * {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  font-size: 100%; }
 
-.books .table .book img {
-  max-height: 100px; }
+.books {
+  font-family: "Barlow", sans-serif; }
+  .books .table .book img {
+    max-height: 100px; }
+  .books .table .book .bookTitle {
+    max-width: 180px;
+    font-family: "Barlow", sans-serif;
+    font-weight: bold;
+    letter-spacing: .04em; }
+  .books .table .book .bookDescription {
+    max-width: 350px;
+    letter-spacing: .03em; }
 
-.bookDescription {
-  max-width: 300px; }
+.borrowers .table {
+  font-family: "Barlow", sans-serif;
+  letter-spacing: .04em; }
 
 .page-header {
-  border-bottom: none; }
+  border-bottom: none;
+  font-family: "Anton", sans-serif; }
+
+.panel-heading {
+  font-family: "Anton", sans-serif; }
 
 #templates {
   display: none; }

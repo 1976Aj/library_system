@@ -31,6 +31,18 @@ getBooksRequest.done( (dataFromServer) => {
   })
 })
 
+bookTable.on('click', '.bookDelete', function(event) {
+  var item = $(event.currentTarget).parent()
+  var itemId = item.attr('data-id')
+  var deleteRequest = $.ajax({
+    type: 'DELETE',
+    url: `${baseURL}/books/${itemId}`,
+  })
+  deleteRequest.done(function() {
+    item.remove()
+  })
+})
+
 
 
 // The borrowerData argument is passed in from the API
@@ -50,6 +62,18 @@ var getBorrowersRequest = $.ajax({
 getBorrowersRequest.done( (dataFromServer) => {
   dataFromServer.forEach( (borrowerData) => {
     addBorrowerToPage(borrowerData)
+  })
+})
+
+borrowerTable.on('click', '.borrowerDelete', function(event) {
+  var item = $(event.currentTarget).parent()
+  var itemId = item.attr('data-id')
+  var deleteRequest = $.ajax({
+    type: 'DELETE',
+    url: `${baseURL}/borrowers/${itemId}`
+  })
+  deleteRequest.done(function() {
+    item.remove()
   })
 })
 
