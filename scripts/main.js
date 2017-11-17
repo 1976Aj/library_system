@@ -1,3 +1,5 @@
+/* global Requests */
+
 var bookTemplate = $('#templates .book')
 var bookTable = $('#bookTable')
 
@@ -6,8 +8,14 @@ var borrowerTable = $('#borrowerTable')
 
 // MY LIBRARY ID IS 130
 var libraryID = 130
+var requests = new Requests(libraryID)
 
-var baseURL = `https://floating-woodland-64068.herokuapp.com/libraries/${libraryID}`
+// var baseURL = `https://floating-woodland-64068.herokuapp.com/libraries/${libraryID}`
+var dataModel = {
+  // books: [],
+  // borrower: [],
+}
+
 
 // The bookData argument is passed in from the API
 function addBookToPage(bookData) {
@@ -20,25 +28,15 @@ function addBookToPage(bookData) {
   bookTable.prepend(book)
 }
 
-var getBooksRequest = $.ajax({
-  type: 'GET',
-  url: `${baseURL}/books`,
+var bookPromise = requests.getBooks().then((dataFromServer) => {
+  dataModel.books = dataFromServer
 })
 
-getBooksRequest.done( (dataFromServer) => {
-  dataFromServer.forEach( (bookData) => {
-    addBookToPage(bookData)
-  })
-})
-
+// DELETE BOOK
 bookTable.on('click', '.bookDelete', function(event) {
   var item = $(event.currentTarget).parent()
   var itemId = item.attr('data-id')
-  var deleteRequest = $.ajax({
-    type: 'DELETE',
-    url: `${baseURL}/books/${itemId}`,
-  })
-  deleteRequest.done(function() {
+  requests.deleteBook({id: itemId}).then(() => {
     item.remove()
   })
 })
@@ -47,30 +45,32 @@ bookTable.on('click', '.bookDelete', function(event) {
 function addBorrowerToPage(borrowerData) {
   var borrower = borrowerTemplate.clone()
   borrower.attr('data-id', borrowerData.id)
-  borrower.find('.borrowerFirstName').text(borrowerData.firstname)
-  borrower.find('.borrowerLastName').text(borrowerData.lastname)
+  borrower.find('.borrowerName').text(`${borrowerData.firstname} ${borrowerData.lastname}`)
   borrowerTable.prepend(borrower)
 }
 
-var getBorrowersRequest = $.ajax({
-  type: 'GET',
-  url: `${baseURL}/borrowers`,
+var borrowerPromise = requests.getBorrowers().then((dataFromServer) => {
+  dataModel.borrowers = dataFromServer
 })
 
-getBorrowersRequest.done( (dataFromServer) => {
-  dataFromServer.forEach( (borrowerData) => {
+var promises = [bookPromise, borrowerPromise]
+
+Promise.all(promises).then(() => {
+  // First add borrower to the page
+  dataModel.borrowers.forEach( (borrowerData) => {
     addBorrowerToPage(borrowerData)
+  })
+  // Next add books to the page
+  dataModel.books.forEach( (bookData) => {
+    addBookToPage(bookData)
   })
 })
 
+// DELETE BORROWER
 borrowerTable.on('click', '.borrowerDelete', function(event) {
   var item = $(event.currentTarget).parent()
   var itemId = item.attr('data-id')
-  var deleteRequest = $.ajax({
-    type: 'DELETE',
-    url: `${baseURL}/borrowers/${itemId}`
-  })
-  deleteRequest.done(function() {
+  requests.deleteBorrower({id: itemId}).then(() => {
     item.remove()
   })
 })
@@ -83,20 +83,13 @@ $('#createBookButton').on('click', () => {
   bookData.description = $('.addBookDescription').val()
   bookData.image_url = $('.addBookImageURL').val()
 
-  var createBookRequest = $.ajax({
-    type: 'POST',
-    url: `${baseURL}/books`,
-    data: {
-      book: bookData
-    }
-  })
-
-  createBookRequest.done((dataFromServer) => {
+  requests.createBook(bookData).then((dataFromServer) => {
     addBookToPage(dataFromServer)
     $('#addBookModal').modal('hide')
     $('#addBookForm')[0].reset()
   })
 })
+
 
 // BORROWER MODAL FUNCTIONALITY
 
@@ -105,19 +98,12 @@ $('#createBorrowerButton').on('click', () => {
   borrowerData.firstname = $('.addBorrowerFirstname').val()
   borrowerData.lastname = $('.addBorrowerLastname').val()
 
-  var createBorrowerRequest = $.ajax({
-    type: 'POST',
-    url: `${baseURL}/borrowers`,
-    data: {
-      borrower: borrowerData
-    }
-  })
-
-  createBorrowerRequest.done((dataFromServer) => {
+  requests.createBorrower(borrowerData).then((dataFromServer) => {
     addBorrowerToPage(dataFromServer)
     $('#addBorrowerModal').modal('hide')
     $('#addBorrowerForm')[0].reset()
   })
+
 })
 
 
