@@ -25,11 +25,16 @@
   </div>
 
   <div class="row">
+
+<!-- ============================================================== -->
+<!-- ======================== TABLES ============================== -->
+<!-- ============================================================== -->
+
 <!-- BOOKS COLUMN -->
     <div class="col-md-8 books">
       <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading"><h2>Books <button class="btn btn-sm btn-warning glyphicon glyphicon-plus pull-right"></button></h2></div>
+        <div class="panel-heading"><h2>Books <button class="btn btn-sm btn-warning glyphicon glyphicon-plus pull-right" data-toggle="modal" data-target="#addBookModal"></button></h2></div>
         <!-- Table -->
         <table id="bookTable" class="table table-striped">
           <tr></tr>
@@ -40,7 +45,7 @@
     <div class="col-md-4 borrowers">
       <div class="panel panel-default">
         <!-- Default panel contents -->
-        <div class="panel-heading"><h2>Borrowers <button class="btn btn-sm btn-warning glyphicon glyphicon-plus pull-right"></button></h2></div>
+        <div class="panel-heading"><h2>Borrowers <button class="btn btn-sm btn-warning glyphicon glyphicon-plus pull-right" data-toggle="modal" data-target="#addBorrowerModal"></button></h2></div>
         <!-- Table -->
         <table id="borrowerTable" class="table table-striped">
           <tr></tr>
@@ -49,31 +54,121 @@
     </div>
 
   </div>
-  <!-- CLOSING DIV ROW -->
+  <!-- CLOSING DIV TABLES ROW -->
 
 </div>
 <!-- CLOSING CONTAINER -->
 
+<!-- ============================================================== -->
+<!-- ======================== MODALS ============================== -->
+<!-- ============================================================== -->
+
+<!-- Books Modal -->
+<div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="addBookModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="addBookModalLabel">Add a Book!</h4>
+      </div>
+      <div class="modal-body">
+
+  <!-- Books Form Modal -->
+  <form id="addBookForm">
+    <div class="form-group input-group">
+      <span class="input-group-addon">
+        <div class="glyphicon glyphicon-book"></div>
+      </span>
+      <input class="form-control addBookTitle" type="text" name="bookTitle" placeholder="Book Title">
+    </div>
+      <div class="form-group">
+        <textarea name="bookDescription" placeholder="Description" class="form-control addBookDescription" rows="8"></textarea>
+      </div>
+
+      <div class="hidden">
+        <img src="" alt="">
+      </div>
+
+      <div class="form-group input-group">
+        <span class="input-group-addon"><div class="glyphicon glyphicon-picture"></div></span>
+          <input name="bookImageURL" type="text" class="form-control addBookImageURL" placeholder="Image URL">
+      </div>
+  </form>
+
+      </div>
+      <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button id="createBookButton" type="button" class="btn btn-primary">Create Book</button>
+      </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Borrower Modal -->
+  <div class="modal fade" id="addBorrowerModal" tabindex="-1" role="dialog" aria-labelledby="addBorrowerModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="addBorrowerModalLabel">Personal Info</h4>
+        </div>
+        <div class="modal-body">
+
+    <!-- Borrower Form Modal -->
+    <form id="addBorrowerForm">
+      <div class="form-group">
+        <input class="form-control addBorrowerFirstname" type="text" name="borrowerName" placeholder="Firstname">
+      </div>
+        <div class="form-group">
+            <input class="form-control addBorrowerLastname" type="text" name="borrowerName" placeholder="Lastname">
+        </div>
+    </form>
+
+        </div>
+        <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button id="createBorrowerButton" type="button" class="btn btn-primary">Create User</button>
+        </div>
+        </div>
+      </div>
+    </div>
+
+<!-- ============================================================== -->
+<!-- ======================== TEMPLATES =========================== -->
+<!-- ============================================================== -->
+
 <!-- TEMPLATE -->
-<section id="templates">
+<section id="templates" class="hidden">
   <table>
   <tr class="book" data-id="some-id">
-    <td><img src="http://profspevack.com/wp-content/uploads/2009/09/ADV2360_swilliams_book.jpg" alt="The Shining" class="img-responsive bookImage"></td>
+    <td><img src="" alt="" class="img-responsive bookImage"></td>
     <td class="bookTitle text-center">Book Title</td>
-    <td class="bookDescription">Book Title</td>
+    <td class="bookDescription">Book Description</td>
+    <td>
+      <div class="form-group">
+  <select class="form-control borrowerSelect">
+    <option>Available</option>
+  </select>
+</div>
+    </td>
     <td class="bookDelete"><div class=" btn btn-sm btn-danger glyphicon glyphicon glyphicon-remove pull-right"></div></td>
   </tr>
 </table>
 
 <table>
 <tr class="borrower" data-id="some-id">
-  <td class="borrowerLastName">Book Title</td>
-  <td class="borrowerFirstName">Book Title</td>
+  <td class="borrowerName">Name</td>
+  <td><span class="badge">0</span></td>
   <td class="borrowerDelete"><div class=" btn btn-sm btn-danger glyphicon glyphicon glyphicon-remove pull-right"></div></td>
 </tr>
 </table>
-</section>
 
+<select>
+  <option class="borrowerOption" value="some-id">Name</option>
+</select>
+
+</section>
 
     <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
